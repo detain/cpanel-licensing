@@ -1,0 +1,23 @@
+{
+    "name": "detain/cpanel-licensing",
+    "type": "library",
+    "description": "Cpanel Licensing Class",
+    "keywords": ["cpanel","administration","license"],
+    "license": "LGPL-2.1",
+    "authors": [
+        {
+            "name": "Joe Huss",
+            "homepage": "https://my.interserver.net/"
+        }
+    ],
+    "config": {
+        "minimum-stability": "dev"
+    },
+    "require": {
+        "php": ">=5.0.0",
+        "ext-soap": "*"
+    },
+    "autoload": {
+        "psr-4": {"Detain\\Cpanel\\": "src/"}
+    }
+}
