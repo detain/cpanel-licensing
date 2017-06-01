@@ -2,7 +2,7 @@
 
 require_once __DIR__.'/../../../rendering/xml2array.inc.php';
 
-namespace Detain\MyAdminCpanel;
+namespace Detain\Cpanel;
 
 class Cpanel {
 	public $format;
