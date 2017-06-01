@@ -1,0 +1,96 @@
+Index: cpl.inc.php
+===================================================================
+--- cpl.inc.php	(revision 6167)
++++ cpl.inc.php	(working copy)
+@@ -1,23 +1,28 @@
+ <?php
+ 
+ class cPanelLicensing {
+-    function __construct ($user, $pass) {
++	public $format;
++	public $curl;
++	public $opts;
++
++    public function __construct ($user, $pass) {
+         if (!function_exists('curl_init')) {
+             die("cPanelLicensing requires that curl+ssl support is compiled into the PHP interpreter");
+         }
++		$this->opts = [];
+         $this->format = "simplexml";
+-        $this->curl = curl_init();
+         $this->setCredentials($user, $pass);
+-        curl_setopt($this->curl, CURLOPT_RETURNTRANSFER,1);
+-        curl_setopt($this->curl, CURLOPT_USERAGENT, 'cPanel Licensing Agent (php) 3.5' );
++        $this->setopt(CURLOPT_RETURNTRANSFER,1);
++        $this->setopt(CURLOPT_USERAGENT, 'cPanel Licensing Agent (php) 3.5' );
+     }
+ 
+-    function __destruct () {
+-        curl_close($this->curl);
+-    }
++	public function setopt($option, $value)
++	{
++		$this->opts[$option] = $value;
++	}
+ 
+     public function setCredentials ($user, $pass) {
+-        curl_setopt($this->curl, CURLOPT_USERPWD, $user . ":" . $pass);
++        $this->setopt(CURLOPT_USERPWD, $user . ":" . $pass);
+     }
+ 
+     public function set_format ($format) {
+@@ -39,20 +44,51 @@
+             $args['output'] = $format;
+         }
+         $query = "https://manage2.cpanel.net/" . $function . "?" . http_build_query($args);
+-        curl_setopt($this->curl, CURLOPT_URL, $query);
++        $this->setopt(CURLOPT_URL, $query);
++		$this->curl = curl_init();
++		foreach ($this->opts as $option => $value)
++		{
++			curl_setopt($this->curl, $option, $value);
++		}
+         $result = curl_exec($this->curl);
++		curl_close($this->curl);
+         if ($result == false) {
+             error_log("cPanelLicensing::get failed: \"" . curl_error($this->curl) . "\"");
+             return;
+         }
+         if ($this->format == "simplexml") {
+-            return simplexml_load_string($result);
++			function_requirements('xml2array');
++			$result = xml2array($result, 1, 'attribute');
++			$result = $result[str_replace('.cgi', '', $function)];
++			$result = $this->format_result($result);			
++			return $result;
+         }
+         else {
+             return $result;
+         }
+     }
+ 
++	private function format_result($result)
++	{
++		if (is_array($result))
++		{
++			foreach ($result as $key => $value)
++			{
++				if (is_array($value))
++				{
++					if (isset($value['attr']) && is_array($value['attr']))
++					{
++						$result[$key] = $value['attr'];
++					}
++					else
++					{
++						$result[$key] = $this->format_result($value);
++					}
++				}
++			}
++		}
++		return $result;
++	}
++
+     private function validateID ($id) {
+         if (preg_match("/^(L|P|G)?\d*$/", $id)) {
+             return 1;
