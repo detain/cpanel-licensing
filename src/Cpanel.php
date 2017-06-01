@@ -2,8 +2,6 @@
 
 namespace Detain\Cpanel;
 
-require_once __DIR__.'/../../../rendering/xml2array.inc.php';
-
 class Cpanel {
 	public $format;
 	public $curl;
@@ -59,6 +57,7 @@ class Cpanel {
             return;
         }
         if ($this->format == "simplexml") {
+			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
 			$result = $result[str_replace('.cgi', '', $function)];
 			$result = $this->format_result($result);			
