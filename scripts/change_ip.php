@@ -1,6 +1,6 @@
 <?php
 include("../cpl.inc.php");
-$cpl = new cPanelLicensing($_SERVER['argv'][1], $_SERVER['argv'][2]);
+$cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
 
 $oldip = "__SOURCEIP__";

@@ -2,7 +2,7 @@
 
 include("cpl.inc.php");
 
-$cpl = new cPanelLicensing("", "");
+$cpl = new \Detain\Cpanel\Cpanel("", "");
 $response = $cpl->registerAuth(array(
     "user" => $_SERVER['argv'][1],
     "pickup" => "__PHRASE__",
