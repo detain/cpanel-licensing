@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__.'/../../../rendering/xml2array.inc.php';
-
 namespace Detain\Cpanel;
+
+require_once __DIR__.'/../../../rendering/xml2array.inc.php';
 
 class Cpanel {
 	public $format;
