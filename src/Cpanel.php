@@ -8,10 +8,7 @@ class Cpanel {
 	public $opts;
 
     public function __construct ($user, $pass) {
-        if (!function_exists('curl_init')) {
-            die("cPanelLicensing requires that curl+ssl support is compiled into the PHP interpreter");
-        }
-		$this->opts = [];
+	$this->opts = [];
         $this->format = "simplexml";
         $this->setCredentials($user, $pass);
         $this->setopt(CURLOPT_RETURNTRANSFER,1);
@@ -42,7 +39,7 @@ class Cpanel {
             return;
         }
         if ($this->format != "simplexml") {
-            $args['output'] = $format;
+            $args['output'] = $this->format;
         }
         $query = "https://manage2.cpanel.net/" . $function . "?" . http_build_query($args);
         $this->setopt(CURLOPT_URL, $query);
@@ -68,6 +65,11 @@ class Cpanel {
         }
     }
 
+	/**
+	 * formats the response
+	 * @param array $result the result array to format
+	 * @return array the rormatted arrray
+	 */
 	private function format_result($result) {
 		if (is_array($result)) {
 			foreach ($result as $key => $value) {
