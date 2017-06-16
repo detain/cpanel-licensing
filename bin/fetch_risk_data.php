@@ -23,4 +23,4 @@ if ($status["@attributes"]["status"] == 1) {
    print "Failed to fetch risk data\n";
 }
 
-?>
+

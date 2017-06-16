@@ -13,4 +13,4 @@ $response = (array)$cpl->changeip( array(
 
 print_r($response)."\n";
 
-?>
+

@@ -15,4 +15,4 @@ $result = (array)$cpl->requestTransfer( array(
 );
 
 print $result["@attributes"]['reason'] . "\n";
-?>
+

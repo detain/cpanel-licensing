@@ -20,4 +20,4 @@ if ($result['@attributes']['status']) {
     print "Failed to reactivate license!\n";
 }
 
-?>
+

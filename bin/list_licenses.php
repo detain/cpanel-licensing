@@ -17,4 +17,4 @@ foreach ( $licenses->licenses as $lisc ) {
     print "   adddate: " . $lisc['@attributes']['adddate'] . "\n";
 }
 */
-?>
+

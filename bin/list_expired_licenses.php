@@ -17,4 +17,4 @@ foreach ( $licenses->licenses as $lisc ) {
     print "    reason: " . $lisc['@attributes']['expirereason'] . "\n";
 }
 
-?>
+

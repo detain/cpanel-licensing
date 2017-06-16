@@ -7,4 +7,4 @@ $response = $cpl->addPickupPass(array("pickup" => "__PHRASE__"));
 
 echo $response;
 
-?>
+

@@ -25,4 +25,4 @@ if ($lisc['@attributes']['status'] > 0) {
 } else {
     print "License add failed: " . $lisc['@attributes']['reason'] . "\n";
 }
-?>
+

@@ -19,4 +19,4 @@ if ( $liscid > 0 ) {
     print "There is no valid license for $ip\n";
 }
 
-?>
+

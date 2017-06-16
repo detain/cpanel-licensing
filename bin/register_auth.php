@@ -10,4 +10,4 @@ $response = $cpl->registerAuth(array(
 
 echo $response;
 
-?>
+
