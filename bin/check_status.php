@@ -7,7 +7,7 @@ $ip = '69.10.46.221';
 $status = $cpl->fetchLicenseRaw(array("ip" => $ip));
 print_r($status);
 if (isset($status['@attributes'])) {
-    print "The license id for the ip is: " . $status["@attributes"]["licenseid"] . "\n";
+    print "The license id for the ip is: ".$status["@attributes"]["licenseid"]."\n";
     print "The status of the license is: ";
     if ($status["@attributes"]["valid"] > 0) {
         print "Active";
@@ -15,7 +15,7 @@ if (isset($status['@attributes'])) {
         print "Inactive";
     }
     print "\n";
-    print "The company holding the license is: " . $status["@attributes"]["company"] .
+    print "The company holding the license is: ".$status["@attributes"]["company"].
         "\n";
 } else {
     print "The status of the license is: Not Licensed\n";
