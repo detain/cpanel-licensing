@@ -16,7 +16,7 @@ class CpanelTest extends TestCase {
 	 */
 	protected function setUp()
 	{
-		$this->object = new Cpanel;
+		$this->object = new Cpanel(getenv('CPANEL_LICENSING_USERNAME'), getenv('CPANEL_LICENSING_PASSWORD'));
 	}
 
 	/**
