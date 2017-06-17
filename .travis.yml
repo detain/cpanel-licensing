@@ -26,7 +26,7 @@ before_script:
   - travis_retry composer self-update
   - travis_retry composer install --no-interaction --dev --prefer-dist
 script: 
-  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then phpdbg -qrr vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/CloudlinuxTest.php -v --coverage-clover build/logs/clover.xml --whitelist src/; else vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/CloudlinuxTest.php -v; fi
+  - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then phpdbg -qrr vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/ -v --coverage-clover build/logs/clover.xml --whitelist src/; else vendor/bin/phpunit --bootstrap tests/bootstrap.php tests/ -v; fi
 after_success:
   - if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ "$TRAVIS_PHP_VERSION" == "7.0" ]; then travis_retry vendor/bin/test-reporter --coverage-report=build/logs/clover.xml; fi
   - if [ "$TRAVIS_PHP_VERSION" = "7.0" ]; then travis_retry php vendor/bin/coveralls -v --coverage_clover=build/logs/clover.xml; fi;
