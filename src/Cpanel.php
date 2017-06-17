@@ -269,19 +269,19 @@ class Cpanel {
         return $this->get("XMLlicenseInfo.cgi", array("expired" => '1'));
     }
 
-    public function findKey ($search, $xml_obj) {
-        $xml_obj = (array) $xml_obj;
-        if (array_key_exists("packages", $xml_obj)) {
+    public function findKey ($search, $xmlObj) {
+        $xmlObj = (array) $xmlObj;
+        if (array_key_exists("packages", $xmlObj)) {
             $type = "packages";
         }
-        else if (array_key_exists("groups", $xml_obj)) {
+        else if (array_key_exists("groups", $xmlObj)) {
             $type = "groups";
         }
         else {
             error_log("cPanelLicensing::findKey with an object that is not groups or packages");
             return;
         }
-        foreach ((array) $xml_obj[$type] as $element) {
+        foreach ((array) $xmlObj[$type] as $element) {
             foreach ((array) $element as $key => $value) {
                 if ((string) $value == $search) {
                     return (string)$key;
