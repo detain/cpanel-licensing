@@ -9,15 +9,15 @@ $lisc = (array) $cpl->fetchLicenseID(array("ip" => $ip));
 $id = $lisc['@attributes']['licenseid'];
 
 if ($id > 0) {
-    $result = (array) $cpl->reactivateLicense(array('liscid' => $id, reactivateok => 1));
+	$result = (array) $cpl->reactivateLicense(array('liscid' => $id, reactivateok => 1));
 } else {
-    print "no expired license exists for $ip\n";
+	print "no expired license exists for $ip\n";
 }
 
 if ($result['@attributes']['status']) {
-    print "the liscense for $ip has been reactivated\n";
+	print "the liscense for $ip has been reactivated\n";
 } else {
-    print "Failed to reactivate license!\n";
+	print "Failed to reactivate license!\n";
 }
 
 
