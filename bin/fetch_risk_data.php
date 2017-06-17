@@ -4,11 +4,7 @@ $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
 $ip = "__IP__";
 
-#
-# This is only useful to cPanel Distributors
-#
-
-
+// This is only useful to cPanel Distributors
 $status = (array)$cpl->fetchLicenseRiskData(array(
     "ip" => $ip
     )
