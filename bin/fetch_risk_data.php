@@ -6,8 +6,8 @@ $ip = "__IP__";
 
 // This is only useful to cPanel Distributors
 $status = (array)$cpl->fetchLicenseRiskData(array(
-    "ip" => $ip
-    )
+	"ip" => $ip
+	)
 );
 
 if ($status["@attributes"]["status"] == 1) {

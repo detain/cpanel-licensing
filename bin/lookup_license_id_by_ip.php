@@ -7,9 +7,9 @@ print_r($lisc);
 $id = $lisc['licenseid'];
 $id = is_array($id) ? $id[0] : $id;
 if ($id) {
-    print "The license id for $ip is $id\n";
+	print "The license id for $ip is $id\n";
 } else {
-    print "No valid license exists for $ip\n";
+	print "No valid license exists for $ip\n";
 }
 
 
