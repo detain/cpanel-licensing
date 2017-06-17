@@ -2,14 +2,14 @@
 
 include("../cpl.inc.php");
 
-$cpl = new \Detain\Cpanel\Cpanel( $_SERVER['argv'][1], $_SERVER['argv'][2] );
+$cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
 $ip = "__IP__";
 
-$groupid = $cpl->findKey("__GROUPNAME__", $cpl->fetchGroups() );
-$packageid = $cpl->findKey("__PACKAGENAME__", $cpl->fetchPackages() );
+$groupid = $cpl->findKey("__GROUPNAME__", $cpl->fetchGroups());
+$packageid = $cpl->findKey("__PACKAGENAME__", $cpl->fetchPackages());
 
-$lisc = (array)$cpl->activateLicense(array(
+$lisc = (array) $cpl->activateLicense(array(
 		"ip" => $ip,
 		"groupid" => $groupid,
 		"packageid" => $packageid,
@@ -21,8 +21,8 @@ $lisc = (array)$cpl->activateLicense(array(
 );
 
 if ($lisc['@attributes']['status'] > 0) {
-	print "license added with id: ". $lisc['@attributes']['licenseid'] . "\n";
+	print "license added with id: ".$lisc['@attributes']['licenseid']."\n";
 } else {
-	print "License add failed: " . $lisc['@attributes']['reason'] . "\n";
+	print "License add failed: ".$lisc['@attributes']['reason']."\n";
 }
 

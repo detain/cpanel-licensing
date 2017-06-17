@@ -27,8 +27,7 @@ class Cpanel {
 		if ($format != "xml" && $format != "json" && $format != "yaml" && $format != "simplexml") {
 			error_log("set_format requires that the format is xml, json, yaml or simplexml");
 			return;
-		}
-		else {
+		} else {
 			$this->format = $format;
 		}
 	}
@@ -49,7 +48,7 @@ class Cpanel {
 		}
 		$result = curl_exec($this->curl);
 		curl_close($this->curl);
-		if ($result == false) {
+		if ($result == FALSE) {
 			error_log("cPanelLicensing::get failed: \"".curl_error($this->curl)."\"");
 			return;
 		}
@@ -59,8 +58,7 @@ class Cpanel {
 			$result = $result[str_replace('.cgi', '', $function)];
 			$result = $this->format_result($result);			
 			return $result;
-		}
-		else {
+		} else {
 			return $result;
 		}
 	}
@@ -88,8 +86,7 @@ class Cpanel {
 	private function validateID($id) {
 		if (preg_match("/^(L|P|G)?\d*$/", $id)) {
 			return 1;
-		}
-		else {
+		} else {
 			return 0;
 		}
 	}
@@ -273,11 +270,9 @@ class Cpanel {
 		$xmlObj = (array) $xmlObj;
 		if (array_key_exists("packages", $xmlObj)) {
 			$type = "packages";
-		}
-		else if (array_key_exists("groups", $xmlObj)) {
+		} else if (array_key_exists("groups", $xmlObj)) {
 			$type = "groups";
-		}
-		else {
+		} else {
 			error_log("cPanelLicensing::findKey with an object that is not groups or packages");
 			return;
 		}
