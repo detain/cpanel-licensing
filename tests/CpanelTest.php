@@ -52,7 +52,7 @@ class CpanelTest extends TestCase {
 	}
 
 	/**
-	 * @covers Detain\Cpanel\Cpanel::set_format
+	 * @covers Detain\Cpanel\Cpanel::setFormat
 	 * @todo   Implement testSet_format().
 	 */
 	public function testSet_format()

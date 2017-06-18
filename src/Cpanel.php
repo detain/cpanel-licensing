@@ -23,9 +23,9 @@ class Cpanel {
 		$this->setopt(CURLOPT_USERPWD, $user.":".$pass);
 	}
 
-	public function set_format($format) {
+	public function setFormat($format) {
 		if ($format != "xml" && $format != "json" && $format != "yaml" && $format != "simplexml") {
-			error_log("set_format requires that the format is xml, json, yaml or simplexml");
+			error_log("setFormat requires that the format is xml, json, yaml or simplexml");
 			return;
 		} else {
 			$this->format = $format;

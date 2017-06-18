@@ -38,7 +38,7 @@ Index: cpl.inc.php
 +        $this->setopt(CURLOPT_USERPWD, $user . ":" . $pass);
      }
  
-     public function set_format ($format) {
+     public function setFormat ($format) {
 @@ -39,20 +44,51 @@
              $args['output'] = $format;
          }

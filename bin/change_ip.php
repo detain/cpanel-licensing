@@ -11,6 +11,6 @@ $response = (array) $cpl->changeip(array(
 	"newip" => $newip
 ));
 
-print_r($response)."\n";
+var_export($response)."\n";
 
 
