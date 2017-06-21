@@ -2,9 +2,9 @@
 include("../cpl.inc.php");
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
-$ip = "__IP__";
+$ipAddress = "__IP__";
 
-$lisc = (array) $cpl->fetchLicenseId(array("ip" => $ip));
+$lisc = (array) $cpl->fetchLicenseId(array("ip" => $ipAddress));
 $liscid = $lisc["@attributes"]["licenseid"];
 
 if ($liscid > 0) {
@@ -16,7 +16,7 @@ if ($liscid > 0) {
 	);
 	print $expire["@attributes"]["result"]."\n";
 } else {
-	print "There is no valid license for $ip\n";
+	print "There is no valid license for $ipAddress\n";
 }
 
 

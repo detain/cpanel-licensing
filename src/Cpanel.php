@@ -91,8 +91,8 @@ class Cpanel {
 		}
 	}
 
-	private function validateIP($ip) {
-		return preg_match("/^\d*\.\d*\.\d*\.\d*$/", $ip);
+	private function validateIP($ipAddress) {
+		return preg_match("/^\d*\.\d*\.\d*\.\d*$/", $ipAddress);
 	}
 
 	public function reactivateLicense($args) {

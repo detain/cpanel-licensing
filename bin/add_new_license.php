@@ -4,13 +4,13 @@ include("../cpl.inc.php");
 
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
-$ip = "__IP__";
+$ipAddress = "__IP__";
 
 $groupid = $cpl->findKey("__GROUPNAME__", $cpl->fetchGroups());
 $packageid = $cpl->findKey("__PACKAGENAME__", $cpl->fetchPackages());
 
 $lisc = (array) $cpl->activateLicense(array(
-		"ip" => $ip,
+		"ip" => $ipAddress,
 		"groupid" => $groupid,
 		"packageid" => $packageid,
 		"force" => 1,
