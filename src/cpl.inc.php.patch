@@ -52,7 +52,7 @@ Index: cpl.inc.php
 +		}
          $result = curl_exec($this->curl);
 +		curl_close($this->curl);
-         if ($result == false) {
+         if ($result == FALSE) {
              error_log("cPanelLicensing::get failed: \"" . curl_error($this->curl) . "\"");
              return;
          }
