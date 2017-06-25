@@ -61,7 +61,7 @@ Index: cpl.inc.php
 +			function_requirements('xml2array');
 +			$result = xml2array($result, 1, 'attribute');
 +			$result = $result[str_replace('.cgi', '', $function)];
-+			$result = $this->format_result($result);			
++			$result = $this->formatResult($result);			
 +			return $result;
          }
          else {
@@ -69,7 +69,7 @@ Index: cpl.inc.php
          }
      }
  
-+	private function format_result($result)
++	private function formatResult($result)
 +	{
 +		if (is_array($result))
 +		{
@@ -83,7 +83,7 @@ Index: cpl.inc.php
 +					}
 +					else
 +					{
-+						$result[$key] = $this->format_result($value);
++						$result[$key] = $this->formatResult($value);
 +					}
 +				}
 +			}

@@ -56,7 +56,7 @@ class Cpanel {
 			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
 			$result = $result[str_replace('.cgi', '', $function)];
-			$result = $this->format_result($result);			
+			$result = $this->formatResult($result);			
 			return $result;
 		} else {
 			return $result;
@@ -68,14 +68,14 @@ class Cpanel {
 	 * @param array $result the result array to format
 	 * @return array the rormatted arrray
 	 */
-	private function format_result($result) {
+	private function formatResult($result) {
 		if (is_array($result)) {
 			foreach ($result as $key => $value) {
 				if (is_array($value)) {
 					if (isset($value['attr']) && is_array($value['attr'])) {
 						$result[$key] = $value['attr'];
 					} else {
-						$result[$key] = $this->format_result($value);
+						$result[$key] = $this->formatResult($value);
 					}
 				}
 			}
