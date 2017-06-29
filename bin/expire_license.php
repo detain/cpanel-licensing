@@ -14,7 +14,7 @@ if ($liscid > 0) {
 		expcode => "normal"
 		)
 	);
-	print $expire["@attributes"]["result"]."\n";
+	print $expire["@attributes"]["result"].PHP_EOL;
 } else {
 	print "There is no valid license for $ipAddress\n";
 }

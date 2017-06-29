@@ -11,6 +11,6 @@ $response = (array) $cpl->changeip(array(
 	"newip" => $newip
 ));
 
-var_export($response)."\n";
+var_export($response).PHP_EOL;
 
 

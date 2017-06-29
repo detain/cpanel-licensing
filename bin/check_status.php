@@ -7,7 +7,7 @@ $ipAddress = '69.10.46.221';
 $status = $cpl->fetchLicenseRaw(array("ip" => $ipAddress));
 var_export($status);
 if (isset($status['@attributes'])) {
-	print "The license id for the ip is: ".$status["@attributes"]["licenseid"]."\n";
+	print "The license id for the ip is: ".$status["@attributes"]["licenseid"].PHP_EOL;
 	print "The status of the license is: ";
 	if ($status["@attributes"]["valid"] > 0) {
 		print "Active";

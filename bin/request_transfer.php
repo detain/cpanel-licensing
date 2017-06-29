@@ -14,5 +14,5 @@ $result = (array) $cpl->requestTransfer(array(
 	)
 );
 
-print $result["@attributes"]['reason']."\n";
+print $result["@attributes"]['reason'].PHP_EOL;
 
