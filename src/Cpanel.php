@@ -55,6 +55,8 @@ class Cpanel {
 		if ($this->format == "simplexml") {
 			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
+			if (!isset($result[str_replace('.cgi', '', $function)]))
+				myadmin_log(self::$module, 'warning', json_encode($result), __LINE__, __FILE__);
 			$result = $result[str_replace('.cgi', '', $function)];
 			$result = $this->formatResult($result);			
 			return $result;
