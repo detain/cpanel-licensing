@@ -29,26 +29,28 @@ class CpanelTest extends TestCase {
 
 	/**
 	 * @covers Detain\Cpanel\Cpanel::setopt
-	 * @todo   Implement testSetopt().
 	 */
 	public function testSetopt()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$prev = $this->object->opts;
+		$data = 'Test Agent';
+		$this->object->setopt(CURLOPT_USERAGENT, $data);
+		$this->assertNotEquals($prev, $this->object->opts, 'Making sure it changes');
+		$this->assertEquals($this->object->opts[CURLOPT_USERAGENT], $data, 'Making sure the new opt is set');
+		$this->object->opts = $prev;
 	}
 
 	/**
 	 * @covers Detain\Cpanel\Cpanel::setCredentials
-	 * @todo   Implement testSetCredentials().
 	 */
 	public function testSetCredentials()
 	{
-		// Remove the following lines when you implement this test.
-		$this->markTestIncomplete(
-			'This test has not been implemented yet.'
-		);
+		$prev = $this->object->opts;
+		$user = 'username';
+		$pass = 'password';
+		$this->object->setCredentials($user, $pass);
+		$this->assertEquals($this->object->opts[CURLOPT_USERPWD], $user.':'.$pass, 'Making sure the credentials set');
+		$this->object->opts = $prev;
 	}
 
 	/**
