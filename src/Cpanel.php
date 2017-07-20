@@ -19,7 +19,7 @@ class Cpanel {
 	 */
 	public function __construct($user, $pass) {
 	$this->opts = [];
-		$this->format = "simplexml";
+		$this->format = 'simplexml';
 		$this->setCredentials($user, $pass);
 		$this->setopt(CURLOPT_RETURNTRANSFER, 1);
 		$this->setopt(CURLOPT_USERAGENT, 'cPanel Licensing Agent (php) 3.5');
@@ -38,15 +38,15 @@ class Cpanel {
 	 * @param $pass
 	 */
 	public function setCredentials($user, $pass) {
-		$this->setopt(CURLOPT_USERPWD, $user.":".$pass);
+		$this->setopt(CURLOPT_USERPWD, $user. ':' .$pass);
 	}
 
 	/**
 	 * @param $format
 	 */
 	public function setFormat($format) {
-		if ($format != "xml" && $format != "json" && $format != "yaml" && $format != "simplexml") {
-			error_log("setFormat requires that the format is xml, json, yaml or simplexml");
+		if ($format != 'xml' && $format != 'json' && $format != 'yaml' && $format != 'simplexml') {
+			error_log('setFormat requires that the format is xml, json, yaml or simplexml');
 			return;
 		} else {
 			$this->format = $format;
@@ -60,13 +60,13 @@ class Cpanel {
 	 */
 	private function get($function, $args = []) {
 		if (!$function) {
-			error_log("cPanelLicensing::get requires that a function is defined");
+			error_log('cPanelLicensing::get requires that a function is defined');
 			return;
 		}
-		if ($this->format != "simplexml") {
+		if ($this->format != 'simplexml') {
 			$args['output'] = $this->format;
 		}
-		$query = "https://manage2.cpanel.net/".$function."?".http_build_query($args);
+		$query = 'https://manage2.cpanel.net/' .$function. '?' .http_build_query($args);
 		$this->setopt(CURLOPT_URL, $query);
 		$this->curl = curl_init();
 		foreach ($this->opts as $option => $value) {
@@ -75,10 +75,10 @@ class Cpanel {
 		$result = curl_exec($this->curl);
 		curl_close($this->curl);
 		if ($result == FALSE) {
-			error_log("cPanelLicensing::get failed: \"".curl_error($this->curl)."\"");
+			error_log('cPanelLicensing::get failed: "' .curl_error($this->curl). '"');
 			return;
 		}
-		if ($this->format == "simplexml") {
+		if ($this->format == 'simplexml') {
 			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
 			if (!isset($result[str_replace('.cgi', '', $function)]))
@@ -137,14 +137,14 @@ class Cpanel {
 	 */
 	public function reactivateLicense($args) {
 		if (!array_key_exists('liscid', $args)) {
-			error_log("cpanelLicensing::reactivateLicense requires that the argument array contains element liscid");
+			error_log('cpanelLicensing::reactivateLicense requires that the argument array contains element liscid');
 			return;
 		}
 		if (!$this->validateID($args['liscid'])) {
-			error_log("The liscid passed to cpanelLicenseing::reactivateLicense was invalid");
+			error_log('The liscid passed to cpanelLicenseing::reactivateLicense was invalid');
 			return;
 		}
-		return $this->get("XMLlicenseReActivate.cgi", $args);
+		return $this->get('XMLlicenseReActivate.cgi', $args);
 	}
 
 	/**
@@ -152,15 +152,15 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function expireLicense($args) {
-		if (!array_key_exists("liscid", $args)) {
-			error_log("cPanelLicensing::expireLicense requires that liscid elements exists in the array passed to it");
+		if (!array_key_exists('liscid', $args)) {
+			error_log('cPanelLicensing::expireLicense requires that liscid elements exists in the array passed to it');
 			return;
 		}
 		if (!$this->validateID($args['liscid'])) {
-			error_log("the liscense ID passed to cpanelLicensing::expireLiscense was invalid");
+			error_log('the liscense ID passed to cpanelLicensing::expireLiscense was invalid');
 			return;
 		}
-		return $this->get("XMLlicenseExpire.cgi", $args);
+		return $this->get('XMLlicenseExpire.cgi', $args);
 	}
 
 	/**
@@ -168,15 +168,15 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function extendOnetimeUpdates($args) {
-		if (!array_key_exists("ip", $args)) {
-			error_log("cpanelLicensing::extendOnetimeUpdates requires that the element ip exists in the array is passed to it");
+		if (!array_key_exists('ip', $args)) {
+			error_log('cpanelLicensing::extendOnetimeUpdates requires that the element ip exists in the array is passed to it');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("cpanelLicensing::extendOnetimeUpdates was passed an invalid ip");
+			error_log('cpanelLicensing::extendOnetimeUpdates was passed an invalid ip');
 			return;
 		}
-		return $this->get("XMLonetimeext.cgi", $args);
+		return $this->get('XMLonetimeext.cgi', $args);
 	}
 
 	/**
@@ -184,15 +184,15 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function changeip($args) {
-		if (!array_key_exists("oldip", $args) || !array_key_exists("newip", $args)) {
-			error_log("cpanelLicensing::changeip requires that oldip and newip elements exist in the array passed to it");
+		if (!array_key_exists('oldip', $args) || !array_key_exists('newip', $args)) {
+			error_log('cpanelLicensing::changeip requires that oldip and newip elements exist in the array passed to it');
 			return;
 		}
-		if (!$this->validateIP($args["newip"])) {
-			error_log("the newip passed to cpanelLicensing::changeip was invalid");
+		if (!$this->validateIP($args['newip'])) {
+			error_log('the newip passed to cpanelLicensing::changeip was invalid');
 			return;
 		}
-		return $this->get("XMLtransfer.cgi", $args);
+		return $this->get('XMLtransfer.cgi', $args);
 	}
 
 	/**
@@ -200,23 +200,23 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function requestTransfer($args) {
-		if (!array_key_exists("ip", $args) || !array_key_exists("groupid", $args) || !array_key_exists("packagegroup", $args)) {
-			error_log("cpanelLicensing::requestTransfer requires that ip, groupid and packageid elements exist in the array passed to it");
+		if (!array_key_exists('ip', $args) || !array_key_exists('groupid', $args) || !array_key_exists('packagegroup', $args)) {
+			error_log('cpanelLicensing::requestTransfer requires that ip, groupid and packageid elements exist in the array passed to it');
 			return;
 		}
-		if (!$this->validateID($args["groupid"])) {
-			error_log("The groupid passed to cpanelLicensing::requestTransfer is invalid");
+		if (!$this->validateID($args['groupid'])) {
+			error_log('The groupid passed to cpanelLicensing::requestTransfer is invalid');
 			return;
 		}
-		if (!$this->validateID($args["packageid"])) {
-			error_log("The package id passed to cpanelLicensing::requestTransfer is invalid");
+		if (!$this->validateID($args['packageid'])) {
+			error_log('The package id passed to cpanelLicensing::requestTransfer is invalid');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("the ip passed to cpanelLicensing::requestTransfer was invalid");
+			error_log('the ip passed to cpanelLicensing::requestTransfer was invalid');
 			return;
 		}
-		return $this->get("XMLtransferRequest.cgi", $args);
+		return $this->get('XMLtransferRequest.cgi', $args);
 	}
 
 	/**
@@ -224,24 +224,24 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function activateLicense($args) {
-		if (!array_key_exists("ip", $args) || !array_key_exists("groupid", $args) || !array_key_exists("packageid", $args)) {
-			error_log("cpanelLicensing::activateLicense requires that ip, groupid and packageid elements exist in the array passed to it");
+		if (!array_key_exists('ip', $args) || !array_key_exists('groupid', $args) || !array_key_exists('packageid', $args)) {
+			error_log('cpanelLicensing::activateLicense requires that ip, groupid and packageid elements exist in the array passed to it');
 			return;
 		}
 		if (!$this->validateID($args['groupid'])) {
-			error_log("cpanelLicensing::acivateLicense was passed an invalid groupid");
+			error_log('cpanelLicensing::acivateLicense was passed an invalid groupid');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("cpanelLicensing::activateLicense was passed an invalid IP");
+			error_log('cpanelLicensing::activateLicense was passed an invalid IP');
 			return;
 		}
 		if (!$this->validateID($args['packageid'])) {
-			error_log("cpanelLicensing::activateLicense was passed an invalid packageid");
+			error_log('cpanelLicensing::activateLicense was passed an invalid packageid');
 			return;
 		}
 		$args['legal'] = 1;
-		return $this->get("XMLlicenseAdd.cgi", $args);
+		return $this->get('XMLlicenseAdd.cgi', $args);
 	}
 
 	/**
@@ -249,11 +249,11 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function addPickupPass($args) {
-		if (!array_key_exists("pickup", $args)) {
-			error_log("cPanelLicensing::addPickupPass requires a pickup param");
+		if (!array_key_exists('pickup', $args)) {
+			error_log('cPanelLicensing::addPickupPass requires a pickup param');
 			return;
 		}
-		return $this->get("XMLaddPickupPass.cgi", $args);
+		return $this->get('XMLaddPickupPass.cgi', $args);
 	}
 
 	/**
@@ -261,21 +261,21 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function registerAuth($args) {
-		if (!array_key_exists("user", $args)) {
-			error_log("cPanelLicensing::registerAuth requires a user param");
+		if (!array_key_exists('user', $args)) {
+			error_log('cPanelLicensing::registerAuth requires a user param');
 			return;
 		}
-		if (!array_key_exists("pickup", $args)) {
-			error_log("cPanelLicensing::registerAuth requires a pickup param");
+		if (!array_key_exists('pickup', $args)) {
+			error_log('cPanelLicensing::registerAuth requires a pickup param');
 			return;
 		}
-		if (!array_key_exists("service", $args)) {
-			error_log("cPanelLicensing::registerAuth requires a service param");
+		if (!array_key_exists('service', $args)) {
+			error_log('cPanelLicensing::registerAuth requires a service param');
 			return;
 		}
-		$response = $this->get("XMLregisterAuth.cgi", $args);
-		if ($this->format == "simplexml") {
-			$this->setCredentials($args["user"], $response["key"]);
+		$response = $this->get('XMLregisterAuth.cgi', $args);
+		if ($this->format == 'simplexml') {
+			$this->setCredentials($args['user'], $response['key']);
 		}
 		return $response;
 	}
@@ -284,7 +284,7 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchGroups() {
-		return $this->get("XMLgroupInfo.cgi");
+		return $this->get('XMLgroupInfo.cgi');
 	}
 
 	/**
@@ -292,15 +292,15 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenseRiskData($args) {
-		if (!array_key_exists("ip", $args)) {
-			error_log("cpanelLicensing::fetchLicenseRiskData requires that ip exists as an element in the array is passed to it");
+		if (!array_key_exists('ip', $args)) {
+			error_log('cpanelLicensing::fetchLicenseRiskData requires that ip exists as an element in the array is passed to it');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("cpanelLicensing::fetchLicenseRiskData was passed an invalid ip");
+			error_log('cpanelLicensing::fetchLicenseRiskData was passed an invalid ip');
 			return;
 		}
-		return $this->get("XMLsecverify.cgi", $args);
+		return $this->get('XMLsecverify.cgi', $args);
 	}
 
 	/**
@@ -308,16 +308,16 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenseRaw($args) {
-		$args = array_merge(["all" => 1], $args);
-		if (!array_key_exists("ip", $args)) {
-			error_log("cpanelLicesning::fetchLicenseRaw requires that ip exists as an element in the array is passed to it");
+		$args = array_merge(['all' => 1], $args);
+		if (!array_key_exists('ip', $args)) {
+			error_log('cpanelLicesning::fetchLicenseRaw requires that ip exists as an element in the array is passed to it');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("cpanelLicensing::fetchLicenseRaw was passed an invalid ip");
+			error_log('cpanelLicensing::fetchLicenseRaw was passed an invalid ip');
 			return;
 		}
-		return $this->get("XMLRawlookup.cgi", $args);
+		return $this->get('XMLRawlookup.cgi', $args);
 	}
 
 	/**
@@ -325,37 +325,37 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenseId($args) {
-		$args = array_merge(["all" => 1], $args);
+		$args = array_merge(['all' => 1], $args);
 		if (!array_key_exists('ip', $args)) {
-			error_log("cpanelLicensing::getLicenseId requires that an IP is passed to it");
+			error_log('cpanelLicensing::getLicenseId requires that an IP is passed to it');
 			return;
 		}
 		if (!$this->validateIP($args['ip'])) {
-			error_log("cpanelLicensing::fetchLicenseId was passed an invalid ip");
+			error_log('cpanelLicensing::fetchLicenseId was passed an invalid ip');
 			return;
 		}
-		return $this->get("XMLlookup.cgi", $args);
+		return $this->get('XMLlookup.cgi', $args);
 	}
 
 	/**
 	 * @return array|mixed|void
 	 */
 	public function fetchPackages() {
-		return $this->get("XMLpackageInfo.cgi");
+		return $this->get('XMLpackageInfo.cgi');
 	}
 
 	/**
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenses() {
-		return $this->get("XMLlicenseInfo.cgi");
+		return $this->get('XMLlicenseInfo.cgi');
 	}
 
 	/**
 	 * @return array|mixed|void
 	 */
 	public function fetchExpiredLicenses() {
-		return $this->get("XMLlicenseInfo.cgi", ["expired" => '1']);
+		return $this->get('XMLlicenseInfo.cgi', ['expired' => '1']);
 	}
 
 	/**
@@ -365,12 +365,12 @@ class Cpanel {
 	 */
 	public function findKey($search, $xmlObj) {
 		$xmlObj = (array) $xmlObj;
-		if (array_key_exists("packages", $xmlObj)) {
-			$type = "packages";
-		} else if (array_key_exists("groups", $xmlObj)) {
-			$type = "groups";
+		if (array_key_exists('packages', $xmlObj)) {
+			$type = 'packages';
+		} else if (array_key_exists('groups', $xmlObj)) {
+			$type = 'groups';
 		} else {
-			error_log("cPanelLicensing::findKey with an object that is not groups or packages");
+			error_log('cPanelLicensing::findKey with an object that is not groups or packages');
 			return;
 		}
 		foreach ((array) $xmlObj[$type] as $element) {

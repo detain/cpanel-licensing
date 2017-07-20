@@ -1,15 +1,15 @@
 <?php
-include("../cpl.inc.php");
+include('../cpl.inc.php');
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
 
-$oldip = "__SOURCEIP__";
-$newip = "__DESTINATIONIP__";
+$oldip = '__SOURCEIP__';
+$newip = '__DESTINATIONIP__';
 
 $response = (array) $cpl->changeip(
 	[
-	"oldip" => $oldip,
-	"newip" => $newip
+		'oldip' => $oldip,
+		'newip' => $newip
 	]
 );
 

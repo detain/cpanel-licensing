@@ -1,10 +1,10 @@
 <?php
-include("../cpl.inc.php");
+include('../cpl.inc.php');
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
-$ipAddress = "__IP__";
+$ipAddress = '__IP__';
 
-$lisc = (array) $cpl->fetchLicenseId(["ip" => $ipAddress]);
+$lisc = (array) $cpl->fetchLicenseId(['ip' => $ipAddress]);
 
 $id = $lisc['@attributes']['licenseid'];
 
