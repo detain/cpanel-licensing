@@ -4,7 +4,7 @@ $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
 $ipAddress = "__IP__";
 
-$lisc = (array) $cpl->fetchLicenseID(array("ip" => $ipAddress));
+$lisc = (array) $cpl->fetchLicenseId(array("ip" => $ipAddress));
 
 $id = $lisc['@attributes']['licenseid'];
 
