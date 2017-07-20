@@ -1,6 +1,6 @@
 <?php
 
-include('cpl.inc.php');
+include 'cpl.inc.php';
 
 $cpl = new \Detain\Cpanel\Cpanel('', '');
 $response = $cpl->registerAuth(
