@@ -58,7 +58,7 @@ class Cpanel {
 	 * @param array $args
 	 * @return array|mixed|void
 	 */
-	private function get($function, $args = array()) {
+	private function get($function, $args = []) {
 		if (!$function) {
 			error_log("cPanelLicensing::get requires that a function is defined");
 			return;
@@ -308,7 +308,7 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenseRaw($args) {
-		$args = array_merge(array("all" => 1), $args);
+		$args = array_merge(["all" => 1], $args);
 		if (!array_key_exists("ip", $args)) {
 			error_log("cpanelLicesning::fetchLicenseRaw requires that ip exists as an element in the array is passed to it");
 			return;
@@ -325,7 +325,7 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchLicenseId($args) {
-		$args = array_merge(array("all" => 1), $args);
+		$args = array_merge(["all" => 1], $args);
 		if (!array_key_exists('ip', $args)) {
 			error_log("cpanelLicensing::getLicenseId requires that an IP is passed to it");
 			return;
@@ -355,7 +355,7 @@ class Cpanel {
 	 * @return array|mixed|void
 	 */
 	public function fetchExpiredLicenses() {
-		return $this->get("XMLlicenseInfo.cgi", array("expired" => '1'));
+		return $this->get("XMLlicenseInfo.cgi", ["expired" => '1']);
 	}
 
 	/**

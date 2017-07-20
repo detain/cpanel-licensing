@@ -5,9 +5,10 @@ $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 $ipAddress = "__IP__";
 
 // This is only useful to cPanel Distributors
-$status = (array) $cpl->fetchLicenseRiskData(array(
+$status = (array) $cpl->fetchLicenseRiskData(
+	[
 	"ip" => $ipAddress
-	)
+	]
 );
 
 if ($status["@attributes"]["status"] == 1) {

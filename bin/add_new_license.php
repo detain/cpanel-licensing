@@ -9,7 +9,8 @@ $ipAddress = "__IP__";
 $groupid = $cpl->findKey("__GROUPNAME__", $cpl->fetchGroups());
 $packageid = $cpl->findKey("__PACKAGENAME__", $cpl->fetchPackages());
 
-$lisc = (array) $cpl->activateLicense(array(
+$lisc = (array) $cpl->activateLicense(
+	[
 		"ip" => $ipAddress,
 		"groupid" => $groupid,
 		"packageid" => $packageid,
@@ -17,7 +18,7 @@ $lisc = (array) $cpl->activateLicense(array(
 // If 0 the license will not be activated if you would be billed a reactivation fee
 // If 1 the license will be activated if a fee is required (at the time of this writing, licenses reactivated within 72 hours of billing)
 		"reactivateok" => 1
-	)
+	]
 );
 
 if ($lisc['@attributes']['status'] > 0) {
