@@ -1,12 +1,22 @@
 <?php
 
 namespace Detain\Cpanel;
-
+/**
+ * Class Cpanel
+ *
+ * @package Detain\Cpanel
+ */
 class Cpanel {
 	public $format;
 	public $curl;
 	public $opts;
 
+	/**
+	 * Cpanel constructor.
+	 *
+	 * @param $user
+	 * @param $pass
+	 */
 	public function __construct($user, $pass) {
 	$this->opts = [];
 		$this->format = "simplexml";
@@ -15,14 +25,25 @@ class Cpanel {
 		$this->setopt(CURLOPT_USERAGENT, 'cPanel Licensing Agent (php) 3.5');
 	}
 
+	/**
+	 * @param $option
+	 * @param $value
+	 */
 	public function setopt($option, $value) {
 		$this->opts[$option] = $value;
 	}
 
+	/**
+	 * @param $user
+	 * @param $pass
+	 */
 	public function setCredentials($user, $pass) {
 		$this->setopt(CURLOPT_USERPWD, $user.":".$pass);
 	}
 
+	/**
+	 * @param $format
+	 */
 	public function setFormat($format) {
 		if ($format != "xml" && $format != "json" && $format != "yaml" && $format != "simplexml") {
 			error_log("setFormat requires that the format is xml, json, yaml or simplexml");
@@ -32,6 +53,11 @@ class Cpanel {
 		}
 	}
 
+	/**
+	 * @param       $function
+	 * @param array $args
+	 * @return array|mixed|void
+	 */
 	private function get($function, $args = array()) {
 		if (!$function) {
 			error_log("cPanelLicensing::get requires that a function is defined");
@@ -58,7 +84,7 @@ class Cpanel {
 			if (!isset($result[str_replace('.cgi', '', $function)]))
 				myadmin_log('licenses', 'warning', json_encode($result), __LINE__, __FILE__);
 			$result = $result[str_replace('.cgi', '', $function)];
-			$result = $this->formatResult($result);			
+			$result = $this->formatResult($result);
 			return $result;
 		} else {
 			return $result;
@@ -85,6 +111,10 @@ class Cpanel {
 		return $result;
 	}
 
+	/**
+	 * @param $id
+	 * @return int
+	 */
 	private function validateID($id) {
 		if (preg_match("/^(L|P|G)?\d*$/", $id)) {
 			return 1;
@@ -93,10 +123,18 @@ class Cpanel {
 		}
 	}
 
+	/**
+	 * @param $ipAddress
+	 * @return int
+	 */
 	private function validateIP($ipAddress) {
 		return preg_match("/^\d*\.\d*\.\d*\.\d*$/", $ipAddress);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function reactivateLicense($args) {
 		if (!array_key_exists('liscid', $args)) {
 			error_log("cpanelLicensing::reactivateLicense requires that the argument array contains element liscid");
@@ -109,6 +147,10 @@ class Cpanel {
 		return $this->get("XMLlicenseReActivate.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function expireLicense($args) {
 		if (!array_key_exists("liscid", $args)) {
 			error_log("cPanelLicensing::expireLicense requires that liscid elements exists in the array passed to it");
@@ -121,6 +163,10 @@ class Cpanel {
 		return $this->get("XMLlicenseExpire.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function extendOnetimeUpdates($args) {
 		if (!array_key_exists("ip", $args)) {
 			error_log("cpanelLicensing::extendOnetimeUpdates requires that the element ip exists in the array is passed to it");
@@ -133,6 +179,10 @@ class Cpanel {
 		return $this->get("XMLonetimeext.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function changeip($args) {
 		if (!array_key_exists("oldip", $args) || !array_key_exists("newip", $args)) {
 			error_log("cpanelLicensing::changeip requires that oldip and newip elements exist in the array passed to it");
@@ -145,6 +195,10 @@ class Cpanel {
 		return $this->get("XMLtransfer.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function requestTransfer($args) {
 		if (!array_key_exists("ip", $args) || !array_key_exists("groupid", $args) || !array_key_exists("packagegroup", $args)) {
 			error_log("cpanelLicensing::requestTransfer requires that ip, groupid and packageid elements exist in the array passed to it");
@@ -165,6 +219,10 @@ class Cpanel {
 		return $this->get("XMLtransferRequest.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function activateLicense($args) {
 		if (!array_key_exists("ip", $args) || !array_key_exists("groupid", $args) || !array_key_exists("packageid", $args)) {
 			error_log("cpanelLicensing::activateLicense requires that ip, groupid and packageid elements exist in the array passed to it");
@@ -186,6 +244,10 @@ class Cpanel {
 		return $this->get("XMLlicenseAdd.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function addPickupPass($args) {
 		if (!array_key_exists("pickup", $args)) {
 			error_log("cPanelLicensing::addPickupPass requires a pickup param");
@@ -194,6 +256,10 @@ class Cpanel {
 		return $this->get("XMLaddPickupPass.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function registerAuth($args) {
 		if (!array_key_exists("user", $args)) {
 			error_log("cPanelLicensing::registerAuth requires a user param");
@@ -214,10 +280,17 @@ class Cpanel {
 		return $response;
 	}
 
+	/**
+	 * @return array|mixed|void
+	 */
 	public function fetchGroups() {
 		return $this->get("XMLgroupInfo.cgi");
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function fetchLicenseRiskData($args) {
 		if (!array_key_exists("ip", $args)) {
 			error_log("cpanelLicensing::fetchLicenseRiskData requires that ip exists as an element in the array is passed to it");
@@ -230,6 +303,10 @@ class Cpanel {
 		return $this->get("XMLsecverify.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function fetchLicenseRaw($args) {
 		$args = array_merge(array("all" => 1), $args);
 		if (!array_key_exists("ip", $args)) {
@@ -243,6 +320,10 @@ class Cpanel {
 		return $this->get("XMLRawlookup.cgi", $args);
 	}
 
+	/**
+	 * @param $args
+	 * @return array|mixed|void
+	 */
 	public function fetchLicenseId($args) {
 		$args = array_merge(array("all" => 1), $args);
 		if (!array_key_exists('ip', $args)) {
@@ -256,18 +337,32 @@ class Cpanel {
 		return $this->get("XMLlookup.cgi", $args);
 	}
 
+	/**
+	 * @return array|mixed|void
+	 */
 	public function fetchPackages() {
 		return $this->get("XMLpackageInfo.cgi");
 	}
 
+	/**
+	 * @return array|mixed|void
+	 */
 	public function fetchLicenses() {
 		return $this->get("XMLlicenseInfo.cgi");
 	}
 
+	/**
+	 * @return array|mixed|void
+	 */
 	public function fetchExpiredLicenses() {
 		return $this->get("XMLlicenseInfo.cgi", array("expired" => '1'));
 	}
 
+	/**
+	 * @param $search
+	 * @param $xmlObj
+	 * @return string|void
+	 */
 	public function findKey($search, $xmlObj) {
 		$xmlObj = (array) $xmlObj;
 		if (array_key_exists("packages", $xmlObj)) {

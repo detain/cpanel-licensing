@@ -3,6 +3,9 @@
 use Detain\Cpanel\Cpanel;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * Class CpanelTest
+ */
 class CpanelTest extends TestCase {
 
 	/**
