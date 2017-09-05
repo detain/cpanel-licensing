@@ -63,15 +63,13 @@ class Cpanel {
 			error_log('cPanelLicensing::get requires that a function is defined');
 			return;
 		}
-		if ($this->format != 'simplexml') {
+		if ($this->format != 'simplexml')
 			$args['output'] = $this->format;
-		}
 		$query = 'https://manage2.cpanel.net/' .$function. '?' .http_build_query($args);
 		$this->setopt(CURLOPT_URL, $query);
 		$this->curl = curl_init();
-		foreach ($this->opts as $option => $value) {
+		foreach ($this->opts as $option => $value)
 			curl_setopt($this->curl, $option, $value);
-		}
 		$result = curl_exec($this->curl);
 		curl_close($this->curl);
 		if ($result == FALSE) {
@@ -274,9 +272,8 @@ class Cpanel {
 			return;
 		}
 		$response = $this->get('XMLregisterAuth.cgi', $args);
-		if ($this->format == 'simplexml') {
+		if ($this->format == 'simplexml')
 			$this->setCredentials($args['user'], $response['key']);
-		}
 		return $response;
 	}
 
@@ -375,9 +372,8 @@ class Cpanel {
 		}
 		foreach ((array) $xmlObj[$type] as $element) {
 			foreach ((array) $element as $key => $value) {
-				if ((string) $value == $search) {
+				if ((string) $value == $search)
 					return (string) $key;
-				}
 			}
 		}
 		error_log("Could not find $type that matches $search");
