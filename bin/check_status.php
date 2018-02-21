@@ -1,11 +1,11 @@
 <?php
-include '../cpl.inc.php';
+include '../src/Cpanel.php';
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
-$ipAddress = '69.10.46.221';
-
-$status = $cpl->fetchLicenseRaw(['ip' => $ipAddress]);
-var_export($status);
+$ipAddress = $_SERVER['argv'][3];
+$cpl->format='json';
+$status = json_decode($cpl->fetchLicenseRaw(['ip' => $ipAddress]), true);
+print_r($status);
 if (isset($status['@attributes'])) {
 	print 'The license id for the ip is: ' . $status['@attributes']['licenseid'].PHP_EOL;
 	print 'The status of the license is: ';

@@ -1,7 +1,7 @@
 <?php
 
 function_requirements('xml2array');
-include '../cpl.inc.php';
+include '../src/Cpanel.php';
 
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
