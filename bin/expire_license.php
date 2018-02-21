@@ -2,20 +2,21 @@
 include '../src/Cpanel.php';
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
-$ipAddress = '__IP__';
-
-$lisc = (array) $cpl->fetchLicenseId(['ip' => $ipAddress]);
-$liscid = $lisc['@attributes']['licenseid'];
+$ipAddress = $_SERVER['argv'][3];
+$cpl->format = 'json';
+$lisc = json_decode($cpl->fetchLicenseId(['ip' => $ipAddress]), true);
+print_r($lisc);
+$liscid = $lisc['licenseid'][0];
 
 if ($liscid > 0) {
-	$expire = (array) $cpl->expireLicense(
+	$expire = json_decode($cpl->expireLicense(
 		[
 			liscid => $liscid,
 			reason => 'Automagic Expiration',
 			expcode => 'normal'
 		]
-	);
-	print $expire['@attributes']['result'].PHP_EOL;
+	), true);
+	print $expire['result'].PHP_EOL;
 } else {
 	print "There is no valid license for $ipAddress\n";
 }
