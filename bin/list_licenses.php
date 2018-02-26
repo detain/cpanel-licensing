@@ -1,12 +1,11 @@
 <?php
 
-function_requirements('xml2array');
 include '../src/Cpanel.php';
 
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
-
-$licenses = $cpl->fetchLicenses();
-var_export($licenses);
+$cpl->format = 'json';
+$licenses = json_decode($cpl->fetchLicenses(), true);
+print_r($licenses);
 /*
 foreach ( $licenses->licenses as $lisc ) {
 	$lisc = (array)$lisc;
