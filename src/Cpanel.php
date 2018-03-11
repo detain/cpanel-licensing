@@ -38,7 +38,7 @@ class Cpanel {
 	 * @param $pass
 	 */
 	public function setCredentials($user, $pass) {
-		$this->setopt(CURLOPT_USERPWD, $user. ':' .$pass);
+		$this->setopt(CURLOPT_USERPWD, $user.':'.$pass);
 	}
 
 	/**
@@ -65,7 +65,7 @@ class Cpanel {
 		}
 		if ($this->format != 'simplexml')
 			$args['output'] = $this->format;
-		$query = 'https://manage2.cpanel.net/' .$function. '?' .http_build_query($args);
+		$query = 'https://manage2.cpanel.net/'.$function.'?'.http_build_query($args);
 		$this->setopt(CURLOPT_URL, $query);
 		$this->curl = curl_init();
 		foreach ($this->opts as $option => $value)
@@ -73,7 +73,7 @@ class Cpanel {
 		$result = curl_exec($this->curl);
 		curl_close($this->curl);
 		if ($result == FALSE) {
-			error_log('cPanelLicensing::get failed: "' .curl_error($this->curl). '"');
+			error_log('cPanelLicensing::get failed: "'.curl_error($this->curl).'"');
 			return;
 		}
 		if ($this->format == 'simplexml') {

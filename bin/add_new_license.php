@@ -22,8 +22,8 @@ $lisc = (array) $cpl->activateLicense(
 );
 
 if ($lisc['@attributes']['status'] > 0) {
-	print 'license added with id: ' . $lisc['@attributes']['licenseid'].PHP_EOL;
+	print 'license added with id: '.$lisc['@attributes']['licenseid'].PHP_EOL;
 } else {
-	print 'License add failed: ' . $lisc['@attributes']['reason'].PHP_EOL;
+	print 'License add failed: '.$lisc['@attributes']['reason'].PHP_EOL;
 }
 

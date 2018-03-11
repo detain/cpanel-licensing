@@ -13,9 +13,9 @@ $status = (array) $cpl->fetchLicenseRiskData(
 
 if ($status['@attributes']['status'] == 1) {
    print "Risk Scores for $ipAddress:\n";
-   print 'aggregate : ' . $status['@attributes']['riskscore.aggregate.score'].PHP_EOL;
-   print 'directorder : ' . $status['@attributes']['riskscore.directorder.score'].PHP_EOL;
-   print 'main : ' . $status['@attributes']['riskscore.main.score'].PHP_EOL;
+   print 'aggregate : '.$status['@attributes']['riskscore.aggregate.score'].PHP_EOL;
+   print 'directorder : '.$status['@attributes']['riskscore.directorder.score'].PHP_EOL;
+   print 'main : '.$status['@attributes']['riskscore.main.score'].PHP_EOL;
 } else {
    print "Failed to fetch risk data\n";
 }
