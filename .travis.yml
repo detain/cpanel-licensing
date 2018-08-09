@@ -1,6 +1,6 @@
 env:
   global:
-    - if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then GIT_COMMITTED_AT=$(git log -1 --pretty=format:%ct); else GIT_COMMITTED_AT=$(git log -1 --skip 1 --pretty=format:%ct); fi
+	- if [ "$TRAVIS_PULL_REQUEST" == "false" ]; then GIT_COMMITTED_AT=$(git log -1 --pretty=format:%ct); else GIT_COMMITTED_AT=$(git log -1 --skip 1 --pretty=format:%ct); fi
 language: php
 os: linux
 dist: trusty
@@ -13,12 +13,13 @@ php:
   - 7.1
 cache:
   directories:
-    - $HOME/.composer/cache/files
-    - tmp/pear/download/
-    - vendor/
+	- $HOME/.composer/cache/files
+	- tmp/pear/download/
+	- vendor/
+	- composer.lock
 addons:
   code_climate:
-    repo_token: $CODECLIMATE_REPO_TOKEN
+	repo_token: $CODECLIMATE_REPO_TOKEN
 before_script:
   - mkdir -p build/logs
   - phpenv config-rm xdebug.ini
