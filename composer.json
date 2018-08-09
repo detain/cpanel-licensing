@@ -26,6 +26,7 @@
 	"require-dev": {
 		"phpunit/phpunit": "*",
 		"phpunit/phpunit-mock-objects": "*",
+		"mockery/mockery": "dev-master",        
 		"vlucas/phpdotenv": "*",
 		"codeclimate/php-test-reporter": "dev-master",
 		"satooshi/php-coveralls": "*",
