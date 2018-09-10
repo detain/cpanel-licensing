@@ -19,5 +19,3 @@ if ($result['@attributes']['status']) {
 } else {
 	print "Failed to reactivate license!\n";
 }
-
-

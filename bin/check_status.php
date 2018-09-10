@@ -20,4 +20,3 @@ if (isset($status['@attributes'])) {
 } else {
 	print "The status of the license is: Not Licensed\n";
 }
-

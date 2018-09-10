@@ -12,5 +12,3 @@ $response = $cpl->registerAuth(
 );
 
 echo $response;
-
-

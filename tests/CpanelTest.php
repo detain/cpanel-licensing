@@ -6,7 +6,8 @@ use PHPUnit\Framework\TestCase;
 /**
  * Class CpanelTest
  */
-class CpanelTest extends TestCase {
+class CpanelTest extends TestCase
+{
 
 	/**
 	 * @var Cpanel

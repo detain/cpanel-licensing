@@ -16,4 +16,3 @@ $result = (array) $cpl->requestTransfer(
 );
 
 print $result['@attributes']['reason'].PHP_EOL;
-

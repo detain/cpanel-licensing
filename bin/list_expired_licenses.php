@@ -16,5 +16,3 @@ foreach ($licenses->licenses as $lisc) {
 	print 'expired on: '.$lisc['@attributes']['expiredon'].PHP_EOL;
 	print '    reason: '.$lisc['@attributes']['expirereason'].PHP_EOL;
 }
-
-

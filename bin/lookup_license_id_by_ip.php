@@ -11,5 +11,3 @@ if ($id) {
 } else {
 	print "No valid license exists for $ipAddress\n";
 }
-
-

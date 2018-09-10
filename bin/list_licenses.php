@@ -4,7 +4,7 @@ include '../src/Cpanel.php';
 
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 $cpl->format = 'json';
-$licenses = json_decode($cpl->fetchLicenses(), TRUE);
+$licenses = json_decode($cpl->fetchLicenses(), true);
 echo json_encode($licenses, JSON_PRETTY_PRINT);
 /*
 foreach ( $licenses->licenses as $lisc ) {
@@ -16,4 +16,3 @@ foreach ( $licenses->licenses as $lisc ) {
 	print "   adddate: " . $lisc['@attributes']['adddate'].PHP_EOL;
 }
 */
-
