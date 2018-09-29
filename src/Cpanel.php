@@ -2,6 +2,8 @@
 
 namespace Detain\Cpanel;
 
+require_once __DIR__.'/../../../workerman/statistics/Applications/Statistics/Clients/StatisticClient.php';
+
 /**
  * Class Cpanel
  *
@@ -76,6 +78,7 @@ class Cpanel
 		if ($this->format != 'simplexml') {
 			$args['output'] = $this->format;
 		}
+		\StatisticClient::tick('CPanel', $function);
 		$query = 'https://manage2.cpanel.net/'.$function.'?'.http_build_query($args);
 		$this->setopt(CURLOPT_URL, $query);
 		$this->curl = curl_init();
@@ -85,9 +88,13 @@ class Cpanel
 		$result = curl_exec($this->curl);
 		curl_close($this->curl);
 		if ($result == false) {
-			error_log('cPanelLicensing::get failed: "'.curl_error($this->curl).'"');
+			$errno = curl_errno($this->curl);
+			$error = curl_error($this->curl);
+			error_log('cPanelLicensing::get failed with error #'.$errno.' "'.$error.'"');
+			\StatisticClient::report('CPanel', $function, false, $errno, $error, STATISTICS_SERVER);
 			return;
 		}
+		\StatisticClient::report('CPanel', $function, true, 0, '', STATISTICS_SERVER);
 		if ($this->format == 'simplexml') {
 			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
