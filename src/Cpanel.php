@@ -78,7 +78,7 @@ class Cpanel
 		if ($this->format != 'simplexml') {
 			$args['output'] = $this->format;
 		}
-		\StatisticClient::tick('CPanel', $function);
+		\StatisticClient::tick('CPanel', str_replace('XML','',$function));
 		$query = 'https://manage2.cpanel.net/'.$function.'?'.http_build_query($args);
 		$this->setopt(CURLOPT_URL, $query);
 		$this->curl = curl_init();
@@ -91,10 +91,10 @@ class Cpanel
 			$errno = curl_errno($this->curl);
 			$error = curl_error($this->curl);
 			error_log('cPanelLicensing::get failed with error #'.$errno.' "'.$error.'"');
-			\StatisticClient::report('CPanel', $function, false, $errno, $error, STATISTICS_SERVER);
+			\StatisticClient::report('CPanel', str_replace('XML','',$function), false, $errno, $error, STATISTICS_SERVER);
 			return;
 		}
-		\StatisticClient::report('CPanel', $function, true, 0, '', STATISTICS_SERVER);
+		\StatisticClient::report('CPanel', str_replace('XML','',$function), true, 0, '', STATISTICS_SERVER);
 		if ($this->format == 'simplexml') {
 			function_requirements('xml2array');
 			$result = xml2array($result, 1, 'attribute');
