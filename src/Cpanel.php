@@ -381,9 +381,9 @@ class Cpanel
 	/**
 	* @return array|mixed|void
 	*/
-	public function fetchPackages()
+	public function fetchPackages($expand = false)
 	{
-		return $this->get('XMLpackageInfo.cgi');
+		return $this->get('XMLpackageInfo.cgi', ($expand === true ? ['expand' => 1] : []));
 	}
 
 	/**
