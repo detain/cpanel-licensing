@@ -1,4 +1,5 @@
 <?php
+
 include '../src/Cpanel.php';
 $cpl = new \Detain\Cpanel\Cpanel($_SERVER['argv'][1], $_SERVER['argv'][2]);
 
@@ -9,14 +10,14 @@ print_r($lisc);
 $liscid = $lisc['licenseid'][0];
 
 if ($liscid > 0) {
-	$expire = json_decode($cpl->expireLicense(
-		[
-			liscid => $liscid,
-			reason => 'Automagic Expiration',
-			expcode => 'normal'
-		]
-	), true);
-	print $expire['result'].PHP_EOL;
+    $expire = json_decode($cpl->expireLicense(
+        [
+            liscid => $liscid,
+            reason => 'Automagic Expiration',
+            expcode => 'normal'
+        ]
+    ), true);
+    print $expire['result'].PHP_EOL;
 } else {
-	print "There is no valid license for $ipAddress\n";
+    print "There is no valid license for $ipAddress\n";
 }
