@@ -91,10 +91,10 @@ class Cpanel
             $errno = curl_errno($this->curl);
             $error = curl_error($this->curl);
             error_log('cPanelLicensing::get failed with error #'.$errno.' "'.$error.'"');
-            \StatisticClient::report('CPanel', str_replace('XML', '', $function), false, $errno, $error, STATISTICS_SERVER);
+            \StatisticClient::report('CPanel', str_replace('XML', '', $function), false, $errno, $error, \STATISTICS_SERVER);
             return;
         }
-        \StatisticClient::report('CPanel', str_replace('XML', '', $function), true, 0, '', STATISTICS_SERVER);
+        \StatisticClient::report('CPanel', str_replace('XML', '', $function), true, 0, '', \STATISTICS_SERVER);
         if ($this->format == 'simplexml') {
             function_requirements('xml2array');
             $result = xml2array($result, 1, 'attribute');
