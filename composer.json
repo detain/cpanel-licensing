@@ -4,8 +4,23 @@
 	"description": "Cpanel Licensing Class",
 	"keywords": [
 		"cpanel",
-		"administration",
-		"license"
+		"cpanel-api",
+		"cpanel-whm",
+		"license",
+		"software-license",
+		"software-licensing",
+		"license-management",
+		"licensing",
+		"api",
+		"automation",
+		"billing",
+		"reseller",
+		"server-management",
+		"subscription",
+		"web-hosting",
+		"whm",
+		"whmcs",
+		"administration"
 	],
 	"license": "LGPL-2.1-only",
 	"authors": [
